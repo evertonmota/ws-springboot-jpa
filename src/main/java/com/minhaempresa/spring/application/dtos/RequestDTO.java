@@ -1,5 +1,7 @@
 package com.minhaempresa.spring.application.dtos;
 
+import java.util.List;
+
 /*
 Padrão de projeto: DTO – Data Transfer Object (Objeto de Transferência de Dados)
 é um padrão de arquitetura de objetos que agregam e encapsulam dados para transferência.
@@ -10,7 +12,7 @@ otimizar a comunicação entre o client e o servidor.
 public class RequestDTO {
     private Integer amount;
     private Double price;
-    private Long pizzaId;
+    private List<Long> pizzasId;
     private String telephone;
 
     private String cpf;
@@ -31,12 +33,12 @@ public class RequestDTO {
         this.price = price;
     }
 
-    public Long getPizzaId() {
-        return pizzaId;
+    public List<Long> getPizzasId() {
+        return pizzasId;
     }
 
-    public void setPizzaId(Long pizzaId) {
-        this.pizzaId = pizzaId;
+    public void setPizzasId(List<Long> pizzasId) {
+        this.pizzasId = pizzasId;
     }
 
     public String getTelephone() {

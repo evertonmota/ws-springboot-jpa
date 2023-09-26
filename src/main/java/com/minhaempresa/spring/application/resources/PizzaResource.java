@@ -22,8 +22,8 @@ public class PizzaResource {
     }
 
     @GetMapping(value = "/{id}")//endpoint
-    public ResponseEntity<Pizza> findById(@PathVariable Long id) {
-        Pizza pizza = pizzaService.findById(id);
+    public ResponseEntity<Pizza> findById(@PathVariable List<Long> id) {
+        Pizza pizza = (Pizza) pizzaService.findAllById(id);
         return ResponseEntity.ok().body(pizza);
     }
 

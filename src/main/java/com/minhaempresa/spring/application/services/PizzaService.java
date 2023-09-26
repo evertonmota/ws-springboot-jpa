@@ -24,9 +24,8 @@ public class PizzaService {
         return pizzaRepository.save(pizza);
     }
 
-    public Pizza findById(Long id) {
-        Optional<Pizza> optional = pizzaRepository.findById(id);
-        return optional.orElseThrow(() -> new ResourceNotFoundException(id));
+    public List<Pizza> findAllById(List<Long> id) {
+        return pizzaRepository.findAllById(id);
     }
 
     public List<Pizza> findAll() {

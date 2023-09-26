@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /*
@@ -40,9 +42,11 @@ public class Request implements Serializable {
     @Column(name = "price")
     private Double price;
 
-    @ManyToOne
-    @JoinColumn(name = "pizzaId")
-    private Pizza pizzaId;
+    @ManyToMany
+    @JoinTable( name="tb_item_request",
+            joinColumns = @JoinColumn(name = "request_id"),
+            inverseJoinColumns = @JoinColumn(name = "pizza_id"))
+    private List<Pizza> pizzas = new ArrayList<>();
 
     @ManyToOne
     // @JoinColumn(name = "telephone")
@@ -51,12 +55,12 @@ public class Request implements Serializable {
 
     public Request() {}
 
-    public Request(LocalDateTime date, Integer amount, Double price, Pizza pizzaId, Customer customer) {
+    public Request(LocalDateTime date,Customer customer, List<Pizza> pizzas, Double price) {
         this.date = date;
-        this.amount = amount;
-        this.price = price;
-        this.pizzaId = pizzaId;
         this.customer = customer;
+        this.pizzas = pizzas;
+        this.price = price;
+
     }
 
     public Long getId() {
@@ -91,12 +95,8 @@ public class Request implements Serializable {
         this.price = price;
     }
 
-    public Pizza getPizzaId() {
-        return pizzaId;
-    }
-
-    public void setPizzaId(Pizza pizzaId) {
-        this.pizzaId = pizzaId;
+    public List<Pizza> getPizzas() {
+        return pizzas;
     }
 
     public Customer getCustomer() {
@@ -127,7 +127,7 @@ public class Request implements Serializable {
                 ", date=" + date +
                 ", amount=" + amount +
                 ", price=" + price +
-                ", pizzaId=" + pizzaId +
+                ", pizzas=" + pizzas +
                 ", customer=" + customer +
                 '}';
     }
